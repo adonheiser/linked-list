@@ -1,5 +1,4 @@
 import unittest, random, sys
-from collections import deque
 import ll   # this is the class to be tested
 
 class LinkedListTest(unittest.TestCase):
