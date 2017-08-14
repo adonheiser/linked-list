@@ -167,35 +167,33 @@ class UnorderedList:
             current = current.getNext()
             i += 1
         ''' now go and set nodes for the rotation'''
-        if rotation > 0:    # rotate right case
-            current = self.head
-            j = 0
-            while current != None and j <= self._index: # now swap nodes
-               if j == self._index - (rotation - 1):
+
+        current = self.head
+        j = 0
+        while current != None and j <= self._index: # now swap nodes
+            if rotation > 0:  # rotate right case
+                if j == self._index - (rotation - 1):
                     if rotation == 1:
                         current.setNext(self.head) # set to existing head
                     self.head = current             # current is the head
                     prev.setNext(None)              # previous is now the end
                     break                           # all done setting new head and tail so break
-               else:
+                else:
                    prev = current
                    current = current.getNext()
                    j += 1
-        else:
-            # rotate left case
-            current = self.head
-            k = 0
-            while current != None and k <= self._index: # now swap nodes
-               if k ==  abs(rotation):              # get the absolute val of rotation since left is negative
-                    #if rotation == 1:
+            else:   # rotate left case
+                if j == abs(rotation):  # get the absolute val of rotation since left is negative
+                    # if rotation == 1:
                     #    self.head = current # set to existing head
-                    self.head = current             # current is the head
-                    prev.setNext(None)              # previous is now the end
-                    break                           # all done setting new head and tail so break
-               else:
-                   prev = current
-                   current = current.getNext()
-                   k += 1
+                    self.head = current  # current is the head
+                    prev.setNext(None)  # previous is now the end
+                    break  # all done setting new head and tail so break
+                else:
+                    prev = current
+                    current = current.getNext()
+                    j += 1
+
 
     # make a temp  list, delete current and copy temp in to new
     def reverse(self):
