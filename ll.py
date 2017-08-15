@@ -36,11 +36,9 @@ class UnorderedList:
         temp = Node(temp)
         temp.setNext(self.head)
         self.head = temp
-        self._index = 0
-        current = self.head
-        while current.getNext() != None:
-            self._index += 1
-            current = current.getNext()
+        if not self._index:
+            self._index = 0
+        self._index += 1
 
     def size(self):
         current = self.head
@@ -91,12 +89,14 @@ class UnorderedList:
                 i += 1
         return None
 
-    # return -1 if not found
+
     def index(self, needle):
         current = self.head
         i = 0
         found = False
         while current != None and not found and i <= self._index:
+            print(" ||||| " + current.getData())
+            print(self._index)
             if current.getData() == needle:
                 found = True
             else:
@@ -172,7 +172,7 @@ class UnorderedList:
         j = 0
         while current != None and j <= self._index: # now swap nodes
             if rotation > 0:  # rotate right case
-                if j == self._index - (rotation - 1):
+                if j == self._index - rotation:
                     if rotation == 1:
                         current.setNext(self.head) # set to existing head
                     self.head = current             # current is the head
@@ -182,7 +182,7 @@ class UnorderedList:
                    prev = current
                    current = current.getNext()
                    j += 1
-            else:   # rotate left case
+            else:
                 if j == abs(rotation):  # get the absolute val of rotation since left is negative
                     # if rotation == 1:
                     #    self.head = current # set to existing head

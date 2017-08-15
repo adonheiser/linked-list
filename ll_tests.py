@@ -40,27 +40,27 @@ class LinkedListTest(unittest.TestCase):
     def testRemoveStart(self):
         print('test remove() start')
         self.assertEqual(self._llist.size(), self._initSize)
-        self.assertEqual(self._llist._index, self._initSize -1)
+        self.assertEqual(self._llist._index, self._initSize)
         self._llist.remove(self._pre +str(0))
         self.assertEqual(self._llist.size(), self._initSize -1)
-        self.assertEqual(self._llist._index, self._initSize - 2)
+        self.assertEqual(self._llist._index, self._initSize - 1)
 
     def testRemoveMiddle(self):
         print('test remove() middle')
         middle = self._initSize // 2
         self.assertEqual(self._llist.size(), self._initSize)
-        self.assertEqual(self._llist._index, self._initSize -1)
+        self.assertEqual(self._llist._index, self._initSize)
         self._llist.remove(self._pre +str(middle))
         self.assertEqual(self._llist.size(), self._initSize -1)
-        self.assertEqual(self._llist._index, self._initSize - 2)
+        self.assertEqual(self._llist._index, self._initSize - 1)
 
     def testRemoveEnd(self):
         print('test remove() end')
         self.assertEqual(self._llist.size(), self._initSize)
-        self.assertEqual(self._llist._index, self._initSize -1)
+        self.assertEqual(self._llist._index, self._initSize)
         self._llist.remove(self._pre +str(self._initSize -1))
         self.assertEqual(self._llist.size(), self._initSize -1)
-        self.assertEqual(self._llist._index, self._initSize - 2)
+        self.assertEqual(self._llist._index, self._initSize - 1)
 
     def testRemove(self):
         for x in reversed(range(self._llist._index)):
@@ -121,7 +121,7 @@ class LinkedListTest(unittest.TestCase):
         for x in range(n):
             self._llist.insert(str, 0)
         self.assertEqual(self._llist.size(), self._initSize + n)
-        self.assertEqual(self._llist._index, self._initSize + n - 1)
+        self.assertEqual(self._llist._index -1, self._initSize + n - 1)
 
     def testPop(self):
         print("testPop()")
@@ -137,24 +137,32 @@ class LinkedListTest(unittest.TestCase):
                 current = current.getNext()
                 i += 1
         self.assertEqual(node, self._llist.pop())
-        self.assertEqual(self._llist._index, self._initSize - 2)
+        self.assertEqual(self._llist._index, self._initSize)
         self.assertFalse(self._llist.search(node))
 
     def testIndexFront(self):
         print("test indexFront()")
-        target = self._pre +  str(self._llist._index)
+        target = self._pre +  str(self._llist._index -1)
         self.assertEqual(0, self._llist.index(target))
 
     def testIndexBack(self):
-        print("test indexBack()")
         target = self._pre + "0"
-        self.assertEqual(self._llist._index, self._llist.index(target))
+        print("test indexBack()")
+        print(self._llist._index)
+        print( self._llist.index(target))
+        print(self._llist.index("foo1"))
+        current = self._llist.head
+
+        while current != None:
+            print("---- " + current.getData())
+            current = current.getNext()
+        self.assertEqual(self._llist._index -1, self._llist.index(target))
 
     def testIndexLoop(self):
         for x in range(self._initSize):
             target = self._pre + str(x)
             with self.subTest():
-                self.assertEqual(self._llist._index -x, self._llist.index(target))
+                self.assertEqual((self._llist._index -1) -x, self._llist.index(target))
 
     # make anad return a refrence list and rotate it by shift
     def rotateReferenceList(self, shift, left = None):
